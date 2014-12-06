@@ -53,23 +53,21 @@ if($_GET || $_POST){
         $url = $url."&severity=".$severity;
     if(!empty($eventtype))
         $url = $url."&eventtype=".$eventtype;
+
+    // $ch = curl_init();
+    // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    // curl_setopt($ch, CURLOPT_URL, 
+    //     $url
+    // );
+    // $content = curl_exec($ch);
     
-    echo "url ";
-    echo $url;
- 
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_URL, 
-        'http://www.gdacs.org/rss.aspx?profile=ARCHIVE'
-    );
-    $content = curl_exec($ch);
-    echo $content;
+    $xml = file_get_contents($url);
+    echo parseXml($xml);
     
-    echo $response;
      
 }
 
-function parseXml ($url) {
+function parseXml ($fileContents) {
     
     $fileContents = str_replace(array("\n", "\r", "\t"), '', $fileContents);
     $fileContents = trim(str_replace('"', "'", $fileContents));

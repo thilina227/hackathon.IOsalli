@@ -1,0 +1,8 @@
+CNN
+Website: http://news.blogs.cnn.com/category/natural-disasters/
+Get request: https://api.import.io/store/data/0fc5ce7f-7555-4602-b299-60dd6114617e/_query?input/webpage/url=http%3A%2F%2Fnews.blogs.cnn.com%2Fcategory%2Fnatural-disasters%2F&_user=e365d9fe-f259-47a4-ad57-a23c435d89cc&_apikey=Bi%2F3T1QzfUZ0fswqBjQxlSnYqfB7d%2Fx%2BNhqG5XOi5h2LLogHkJZQqv1l%2Bh%2FMb9zP%2FTiC3YkuGnWZ8Z%2BVe4EVbw%3D%3D
+
+BBC 
+Website: http://www.bbc.co.uk/science/earth/natural_disasters
+Get request: https://api.import.io/store/data/7205f202-ee71-49f5-a123-2b02d92a957c/_query?input/webpage/url=http%3A%2F%2Fwww.bbc.co.uk%2Fscience%2Fearth%2Fnatural_disasters&_user=e365d9fe-f259-47a4-ad57-a23c435d89cc&_apikey=Bi%2F3T1QzfUZ0fswqBjQxlSnYqfB7d%2Fx%2BNhqG5XOi5h2LLogHkJZQqv1l%2Bh%2FMb9zP%2FTiC3YkuGnWZ8Z%2BVe4EVbw%3D%3D
+

@@ -14,16 +14,30 @@ if($_GET || $_POST){
     severity: earthquake magnitude or cyclone wind speed or flood magnitude latitude, longitude: nearby events
     eventtype: comma separated list EQ, FL, TC
     */
+     $from = "";
+     $to = "";
+     $alertlevel = "";
+     $country = "";
+     $population = "";
+     $severity = "";
+     $eventtype = "";
     
-     $from = $_REQUEST ['from'];
-     $to = $_REQUEST ['$to'];
-     $alertlevel = $_REQUEST ['alertlevel'];
-     $country = $_REQUEST ['$country'];
-     $population = $_REQUEST ['population'];
-     $severity = $_REQUEST['severity'];
-     $eventtype = $_REQUEST['eventtype'];
+    if(isset($_REQUEST ['from']))
+        $from = $_REQUEST ['from'];
+    if(isset($_REQUEST ['to']))
+        $to = $_REQUEST ['to'];
+    if(isset($_REQUEST ['alertlevel']))
+        $alertlevel = $_REQUEST ['alertlevel'];
+    if(isset($_REQUEST ['country']))
+        $country = $_REQUEST ['country'];
+    if(isset($_REQUEST ['population']))
+        $population = $_REQUEST ['population'];
+    if(isset($_REQUEST['severity']))
+        $severity = $_REQUEST['severity'];
+    if(isset($_REQUEST['eventtype']))
+        $eventtype = $_REQUEST['eventtype'];
      
-     $url = "http://www.gdacs.org/rss.aspx?profile=ARCHIVE";
+    $url = "http://www.gdacs.org/rss.aspx?profile=ARCHIVE";
      
     if(!empty($from))
         $url = $url."&from=".$from;

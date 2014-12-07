@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <title></title>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script type="text/javascript" charset="utf-8">
+            
+            $(document).ready(function(){
+                $url = 'https://api.import.io/store/data/06f9aa6c-0eb1-46d5-b3d7-c1faab1e6dfa/_query?input/webpage/url=http%3A%2F%2Fwww.huffingtonpost.com%2Fnews%2Fnatural-disasters%2F&_user=e365d9fe-f259-47a4-ad57-a23c435d89cc&_apikey=Bi%2F3T1QzfUZ0fswqBjQxlSnYqfB7d%2Fx%2BNhqG5XOi5h2LLogHkJZQqv1l%2Bh%2FMb9zP%2FTiC3YkuGnWZ8Z%2BVe4EVbw%3D%3D';
+                
+                $.getJSON($url, function(data) {
+                    // $('#info').html(JSON.stringify(data.results));
+                    for (i=0; i<data.results.length; i++) {
+                        obj = data.results[i];
+                        $('#news_feed').append('<p>'+JSON.stringify(obj)+'</p>');
+                        $('#news_feed').append('<p>'+JSON.stringify(obj)+'</p>');
+                        
+                    }
+                });
+            });
+ 
+        </script>
+    </head>
+    <body>
+        <div id="info">
+            <div id="news">
+               <p id="news_feed"></p>
+            </div>
+        </div>
+    </body>
+</html>

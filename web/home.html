@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Disaster Management System</title>
+		<script src="js/jquery-1.4.4.min.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+		<script src="js/gmap3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="http://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
+		<style type="text/css" media="screen">
+			body {
+				text-align: center;
+			}
+			.gmap3 {
+				margin: 20px auto;
+				border: 1px dashed #C0C0C0;
+				height: 600px;
+				width: 100%;
+				margin-left: 5px;				
+			}
+
+		</style>
+	</head>
+	<body>
+		<div class="row">
+			<div class="col-xs-6 col-md-9">
+				<div id="mapdiv" class="gmap3" width="100%" height="650px"></div>
+			</div>
+			<div class="col-xs-6 col-md-3">
+				<div class="row">
+					<div class="col-xs-12 col-md-11">
+						<div class="panel panel-danger">
+							<div class="panel-heading" id='panel_head'>
+								<h3 class="panel-title">News <span class="caret pull-right"></span></h3>
+							</div>
+							<div class="panel-body" id="panel">
+								Panel content
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 col-md-11">
+						<form id="homeform" name="homeform" action="http://thilina227.koding.io//hackathon.IOsalli/service/service.php" method="POST" class="navbar-form" role="search">
+			              <ul class="list-group">
+			                <li class="list-group-item">
+			                  <div class="checkbox">
+			                       <input name="LS" value="LS" type="checkbox"> Landslide
+			                  </div>
+			                </li>
+			                <li class="list-group-item">
+			                  <div class="checkbox">
+			                      <input name="TC" value="TC" type="checkbox"> Cyclone
+			                  </div>
+			                </li>
+			                <li class="list-group-item">
+			                  <div class="checkbox">
+			                      <input name="FL" value="FL" type="checkbox"/> Flood
+			                  </div>
+			                </li>
+			                <li class="list-group-item">
+			                  <div class="checkbox">
+			                      <input name="TS" value="TS" type="checkbox"/> Tsunami
+			                  </div>
+			                </li>
+			                <li class="list-group-item">
+			                  <div class="checkbox">
+			                      <input name="EQ" value="EQ" type="checkbox"/> Earthquake 
+			                  </div>
+			                </li>
+			                 <li class="list-group-item">
+			                  <div class="checkbox">
+			                      <input name="country" placeHolder="Country" type="text" />
+			                  </div>
+			                </li>
+			                <li class="list-group-item">
+			                  <input name="from" type=date step=7 min="1800-01-01" /> : From
+			                </li>
+			                <li class="list-group-item">
+			                  <input name="to" type=date step=7 min="1800-01-01"/> : To
+			                </li>
+			                <li class="list-group-item">
+			                  <button id="btnhome" type="button" class="btn btn-default">Search <span class="glyphicon glyphicon-search"></span></button>
+			                </li>
+			              </ul>
+			            </form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+		
+			$( "#btnhome" ).click(function() {
+		        calltoservice();
+		        return false;
+		    });
+		            
+		    function calltoservice(){
+	            var postData = $("#homeform").serializeArray();
+	            $('#pt').append("<h2>"+postData[0].value+"</h2>");
+	            var formURL = "http://54.169.169.212/hackathon.IOsalli/service/service.php";
+	            jQuery.ajax({
+	                url : formURL,
+	                type: "POST",
+	                data : postData,
+	                dataType: "text",
+	                success:function(data){
+	                $('#pt').append("<h2>Success</h2>");
+	                
+	                var codes = jQuery.parseJSON(data);
+	                $('#pt').append("<h2>Success2</h2>");
+	                    console.log(codes);
+	                    $('#pt').append("<h2>Success3</h2>");
+	                    $.each(codes, function (key, value) {
+	                      $('#pt').append("<h2>" +value.title + "</h2>");
+	                    });
+	                },
+	                error: function(){
+	                $('#pt').append("<h2>Fail</h2>");
+	                        //if fails      
+	                }
+	            });
+	    	}
+		
+			$("#btnhome").click(function() {
+				calltoservice();
+				return false;
+			});
+			function calltoservice() {
+				// $("#homeform").submit(function(e){
+				var postData = $(this).serializeArray();
+				var formURL = "http://thilina227.koding.io//hackathon.IOsalli/service/service.php";
+				jQuery.ajax({
+					url : formURL,
+					type : "POST",
+					data : postData,
+					success : function(data) {
+						$('#pt').append("<h2>Success</h2>");
+						//data: return data from server
+					},
+					error : function() {
+						$('#pt').append("<h2>Fail</h2>");
+						//if fails
+					}
+				});
+			}
+
+
+			$(document).ready(function() {
+				var $map = $("#mapdiv");
+
+				//show the initial map
+				$map.gmap3({
+					map : {
+						address : "Sri Lanka",
+						options : {
+							zoom : 2,
+							mapTypeControl : true,
+							mapTypeControlOptions : {
+								style : google.maps.MapTypeControlStyle.DROPDOWN_MENU
+							},
+							navigationControl : true,
+							scrollwheel : true,
+							streetViewControl : true
+						}
+					}
+				});
+
+				//add marker
+				//addr=address of a place, or longitude, latitude
+				function addMarker(lat, lon, data) {
+					$map.gmap3({
+						marker : {
+							 values:[
+						      {latLng:[lat, lon], data:"data.country"},
+						    ],
+							data : data,
+							events : {
+								mouseover : function(marker, event, context) {
+									var map = $(this).gmap3("get"), infowindow = $(this).gmap3({
+										get : {
+											name : "infowindow"
+										}
+									});
+									if(infowindow) {
+										infowindow.open(map, marker);
+										infowindow.setContent(context.data);
+									} else {
+										$(this).gmap3({
+											infowindow : {
+												anchor : marker,
+												options : {
+													content : context.data
+												}
+											}
+										});
+									}
+								},
+								mouseout : function() {
+									var infowindow = $(this).gmap3({
+										get : {
+											name : "infowindow"
+										}
+									});
+									if(infowindow) {
+										setTimeout(function() {
+											infowindow.close();
+										}, 5000);
+										//wait 5 seconds before close the info window
+									}
+								}
+							}
+						}
+					});
+				}
+
+				//clear markers
+				function clear() {
+					$map.gmap3({
+						clear : {}
+					});
+				}
+			});
+		</script>
+	</body>
+</html>

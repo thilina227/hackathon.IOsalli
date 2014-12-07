@@ -42,43 +42,50 @@
                 <li class="list-group-item">
                   <div class="checkbox">
                      <label>
-                       <input value="Landslide" type="checkbox"> Landslide
+                       <input value="LS" type="checkbox"> Landslide
                      </label>
                   </div>
                 </li>
                 <li class="list-group-item">
                   <div class="checkbox">
                     <label>
-                      <input value="Cyclone" type="checkbox"> Cyclone
+                      <input value="TC" type="checkbox"> Cyclone
                     </label>
                   </div>
                 </li>
                 <li class="list-group-item">
                   <div class="checkbox">
                     <label>
-                      <input value="Flood" type="checkbox"> Flood
+                      <input value="FL" type="checkbox"/> Flood
                     </label>
                   </div>
                 </li>
                 <li class="list-group-item">
                   <div class="checkbox">
                     <label>
-                      <input value="Tsunami" type="checkbox"> Tsunami
+                      <input value="TS" type="checkbox"/> Tsunami
                     </label>
                   </div>
                 </li>
                 <li class="list-group-item">
                   <div class="checkbox">
                     <label>
-                      <input value="Earthquake" type="checkbox"> Earthquake 
+                      <input value="EQ" type="checkbox"/> Earthquake 
+                    </label>
+                  </div>
+                </li>
+                 <li class="list-group-item">
+                  <div class="checkbox">
+                    <label>
+                      <input name="country" placeHolder="Country" type="text" />
                     </label>
                   </div>
                 </li>
                 <li class="list-group-item">
-                  <input type=date step=7 min=1800-01-01> : From
+                  <input name="from" type=date step=7 min="1800-01-01" /> : From
                 </li>
                 <li class="list-group-item">
-                  <input type=date step=7 min=1800-01-01> : To
+                  <input name="to" type=date step=7 min="1800-01-01"/> : To
                 </li>
                 <li class="list-group-item">
                   <button type="button" class="btn btn-default">Search <span class="glyphicon glyphicon-search"></span></button>
@@ -96,43 +103,5 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
     <script src="https://rawgit.com/seiyria/bootstrap-slider/master/dist/bootstrap-slider.min.js"></script>
     <script src="js/test.js">></script>
-    <script type="text/JavaScript">
-    $(function(){
-        
-    var ajaxSubmit = function(){
-        $.ajax({
-         type: "GET",
-         url: 'service.php',
-         async: false,
-         beforeSend: function(x) {
-          if(x &amp;&amp; x.overrideMimeType) {
-           x.overrideMimeType("application/j-son;charset=UTF-8");
-          }
-         },
-         dataType: "json",
-        success: function(data){
-        for(i = 0; i < data.items.length; i++) {
-                            $('#ptest').append("<p>" + data[i].title + "</p>");
-                         }
-           /* $.each( data.markers, function(i, marker) {
-            $('#newsfeed').append("<h>"+location +"</h>");
-    		    	    $('#map_canvas').gmap('addMarker', {
-    				     'position': new google.maps.LatLng(marker.latitude, marker.longitude), 
-    				     'bounds': true,
-    				     'icon': 'images/'+  marker.icon
-    		    	    }).click(function() {
-    				        $('#map_canvas').gmap('openInfoWindow', { 'content': marker.content }, this);
-    		    	    });
-    	    	    });*/
-            }
-        });
-    };
-        
-        $(".navbar-form").submit(ajaxSubmit);
-    })
-    </script>
-    <div id="ptest"></div>
-        
-    </div>
   </body>
 </html>

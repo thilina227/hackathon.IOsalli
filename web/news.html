@@ -1,0 +1,45 @@
+<!--
+ function getDisasterNews accept 3 parameters
+    1- disaster : String(Earthquakes, Flood, etc)
+    2- location : String(city or country)
+    3- date : String(Date which the disaster happen)
+and it open a pop-up window which contains news results according to given parameter
+-->
+<html>
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+</head>
+<h1>Hi</h1>
+ <script>
+       $(document).ready(function(){
+          $( "#newswindow" ).dialog({ autoOpen: false });
+          getDisasterNews("earthquakes", "new+zealand", "2014-11-16");
+                $( "#opennews" ).click(function() {
+                $( "#newswindow" ).dialog( "open" );
+            });
+        });
+        
+        function getDisasterNews(disaster, location, date){
+            var query = "https://www.googleapis.com/customsearch/v1?key=AIzaSyDywnI5ObiFyk8HGTvZEoOPE7i04BSW6dE&cx=015585821238283799135:mpbggould1a&q="+disaster+"+"+location+"+"+date+"";
+            jQuery.ajax({
+                  type:'GET',
+                  url: query ,
+                  dataType: "json",
+                  success:function(data) {  
+                        $('#newsfeed').append("<h>"+location +"</h>");
+                        for(i = 0; i < data.items.length; i++) {
+                            $('#newsfeed').append("<h2>" + data.items[i].title + "</h2>");
+                            $('#newsfeed').append("<p>" + data.items[i].htmlTitle + "</p>");
+                            $('#newsfeed').append("<p><a href=" + data.items[i].link + "> " + data.items[i].link + "</a></p>");
+                            $('#newsfeed').append("<p>" + data.items[i].htmlSnippet + "</p>");
+                            $('#newsfeed').append("<h2> ================================= </h2>");
+                         }
+                } 
+               });
+        }
+    </script>
+<button id="opennews">Get news</button>
+<div id="newswindow" title="News search results"><p id="newsfeed"><font face="Georgia" size="4"></font></p></div>
+</html>

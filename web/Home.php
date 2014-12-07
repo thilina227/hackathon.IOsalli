@@ -37,7 +37,7 @@
         </div>
         <div class="row">
           <div class="col-xs-12 col-md-11">
-            <form class="navbar-form" role="search">
+            <form action="http://utkk84d8bf6f.thilina227.koding.io/hackathon.IOsalli/service/service.php" method="get" class="navbar-form" role="search">
               <ul class="list-group">
                 <li class="list-group-item">
                   <div class="checkbox">

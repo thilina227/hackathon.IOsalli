@@ -92,6 +92,8 @@
 		</div>
 		<script type="text/javascript">
 		
+			$(document).ready(function() {
+			    
 			$( "#btnhome" ).click(function() {
 		        calltoservice();
 		        return false;
@@ -99,56 +101,24 @@
 		            
 		    function calltoservice(){
 	            var postData = $("#homeform").serializeArray();
-	            $('#pt').append("<h2>"+postData[0].value+"</h2>");
-	            var formURL = "/service/service.php";
+	            var formURL = "http://54.169.169.212/hackathon.IOsalli/service/service.php";
 	            jQuery.ajax({
 	                url : formURL,
 	                type: "POST",
 	                data : postData,
 	                dataType: "text",
 	                success:function(data){
-	                $('#pt').append("<h2>Success</h2>");
-	                
 	                var codes = jQuery.parseJSON(data);
-	                $('#pt').append("<h2>Success2</h2>");
-	                    console.log(codes);
-	                    $('#pt').append("<h2>Success3</h2>");
 	                    $.each(codes, function (key, value) {
-	                      $('#pt').append("<h2>" +value.title + "</h2>");
+	                        addMarker(value.latitude, value.longitude, codes.this);
 	                    });
 	                },
-	                error: function(){
-	                $('#pt').append("<h2>Fail</h2>");
-	                        //if fails      
+	                error: function(){  
 	                }
 	            });
 	    	}
-		
-			$("#btnhome").click(function() {
-				calltoservice();
-				return false;
-			});
-			function calltoservice() {
-				// $("#homeform").submit(function(e){
-				var postData = $(this).serializeArray();
-				var formURL = "http://thilina227.koding.io//hackathon.IOsalli/service/service.php";
-				jQuery.ajax({
-					url : formURL,
-					type : "POST",
-					data : postData,
-					success : function(data) {
-						$('#pt').append("<h2>Success</h2>");
-						//data: return data from server
-					},
-					error : function() {
-						$('#pt').append("<h2>Fail</h2>");
-						//if fails
-					}
-				});
-			}
 
 
-			$(document).ready(function() {
 				var $map = $("#mapdiv");
 
 				//show the initial map

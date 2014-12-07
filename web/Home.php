@@ -96,5 +96,43 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
     <script src="https://rawgit.com/seiyria/bootstrap-slider/master/dist/bootstrap-slider.min.js"></script>
     <script src="js/test.js">></script>
+    <script type="text/JavaScript">
+    $(function(){
+        
+    var ajaxSubmit = function(){
+        $.ajax({
+         type: "GET",
+         url: 'service.php',
+         async: false,
+         beforeSend: function(x) {
+          if(x &amp;&amp; x.overrideMimeType) {
+           x.overrideMimeType("application/j-son;charset=UTF-8");
+          }
+         },
+         dataType: "json",
+        success: function(data){
+        for(i = 0; i < data.items.length; i++) {
+                            $('#ptest').append("<p>" + data[i].title + "</p>");
+                         }
+           /* $.each( data.markers, function(i, marker) {
+            $('#newsfeed').append("<h>"+location +"</h>");
+    		    	    $('#map_canvas').gmap('addMarker', {
+    				     'position': new google.maps.LatLng(marker.latitude, marker.longitude), 
+    				     'bounds': true,
+    				     'icon': 'images/'+  marker.icon
+    		    	    }).click(function() {
+    				        $('#map_canvas').gmap('openInfoWindow', { 'content': marker.content }, this);
+    		    	    });
+    	    	    });*/
+            }
+        });
+    };
+        
+        $(".navbar-form").submit(ajaxSubmit);
+    })
+    </script>
+    <div id="ptest"></div>
+        
+    </div>
   </body>
 </html>

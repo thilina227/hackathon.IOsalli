@@ -76,7 +76,6 @@ function parseXml ($fileContents) {
     
     $array = array();
     foreach ($simpleXml->channel->item as $item) {
-        $item = $simpleXml->channel->item;
         $marker = array();
         $marker["title"]= (string)$item->title;
         $marker["description"]= str_replace((string) $item->description);

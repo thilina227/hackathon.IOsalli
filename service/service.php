@@ -54,28 +54,59 @@ if($_GET || $_POST){
     if(!empty($eventtype))
         $url = $url."&eventtype=".$eventtype;
 
-    // $ch = curl_init();
-    // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    // curl_setopt($ch, CURLOPT_URL, 
-    //     $url
-    // );
-    // $content = curl_exec($ch);
-    
+
     $xml = file_get_contents($url);
-    echo parseXml($xml);
     
+    $xml = prepareXml($xml);
+    
+    $jsonObj = parseXml($xml);
+    
+    $jsonObj = json_encode(json_decode($jsonObj));
+
+    print_r($jsonObj);
      
 }
 
 function parseXml ($fileContents) {
-    
+    $fileContents = str_replace("geo:", "", $fileContents);
+    $fileContents = str_replace("gdacs:", "", $fileContents);
     $fileContents = str_replace(array("\n", "\r", "\t"), '', $fileContents);
     $fileContents = trim(str_replace('"', "'", $fileContents));
     $simpleXml = simplexml_load_string($fileContents);
-    $json = json_encode($simpleXml);
+    
+    $array = array();
+    foreach ($simpleXml->channel->item as $item) {
+        $item = $simpleXml->channel->item;
+        $marker = array();
+        $marker["title"]= (string)$item->title;
+        $marker["description"]= str_replace((string) $item->description);
+        $marker["latitude"]= (string) $item->Point->lat;
+        $marker["longitude"]=  (string)$item->Point->long;
+        $marker["eventtype"]=  (string)$item->eventtype;
+        $marker["alertlevel"]=  (string)$item->alertlevel;
+        array_push($array, $marker);
+    }
+    
+    $json = json_encode($array);
     return $json;
 }
 
+
+function removeElement($element, $xml){
+    $dom = new DOMDocument();
+    $dom->loadXML($xml);
+    $featuredde1 = $dom->getElementsByTagName($element);
+    foreach ($featuredde1 as $node) {
+        $node->parentNode->removeChild($node);
+    }
+    
+}
+
+function prepareXml($xml){
+    $xml = str_replace("geo:", "", $xml);
+    $xml = str_replace("gdacs:", "", $xml);
+    return $xml;
+}
     
 
 ?>

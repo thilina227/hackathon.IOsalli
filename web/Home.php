@@ -41,44 +41,32 @@
               <ul class="list-group">
                 <li class="list-group-item">
                   <div class="checkbox">
-                     <label>
-                       <input value="LS" type="checkbox"> Landslide
-                     </label>
+                       <input name="LS" value="LS" type="checkbox"> Landslide
                   </div>
                 </li>
                 <li class="list-group-item">
                   <div class="checkbox">
-                    <label>
-                      <input value="TC" type="checkbox"> Cyclone
-                    </label>
+                      <input name="TC" value="TC" type="checkbox"> Cyclone
                   </div>
                 </li>
                 <li class="list-group-item">
                   <div class="checkbox">
-                    <label>
-                      <input value="FL" type="checkbox"/> Flood
-                    </label>
+                      <input name="FL" value="FL" type="checkbox"/> Flood
                   </div>
                 </li>
                 <li class="list-group-item">
                   <div class="checkbox">
-                    <label>
-                      <input value="TS" type="checkbox"/> Tsunami
-                    </label>
+                      <input name="TS" value="TS" type="checkbox"/> Tsunami
                   </div>
                 </li>
                 <li class="list-group-item">
                   <div class="checkbox">
-                    <label>
-                      <input value="EQ" type="checkbox"/> Earthquake 
-                    </label>
+                      <input name="EQ" value="EQ" type="checkbox"/> Earthquake 
                   </div>
                 </li>
                  <li class="list-group-item">
                   <div class="checkbox">
-                    <label>
                       <input name="country" placeHolder="Country" type="text" />
-                    </label>
                   </div>
                 </li>
                 <li class="list-group-item">
@@ -110,27 +98,31 @@
     });
             
     function calltoservice(){
-        // $("#homeform").submit(function(e){
-            var postData = $(this).serializeArray();
-            var formURL = "http://thilina227.koding.io//hackathon.IOsalli/service/service.php";
+            var postData = $("#homeform").serializeArray();
+            $('#pt').append("<h2>"+postData[0].value+"</h2>");
+            var formURL = "http://54.169.169.212/hackathon.IOsalli/service/service.php";
             jQuery.ajax({
                 url : formURL,
                 type: "POST",
                 data : postData,
+                dataType: "text",
                 success:function(data){
                 $('#pt').append("<h2>Success</h2>");
-                        //data: return data from server
+                
+                var codes = jQuery.parseJSON(data);
+                $('#pt').append("<h2>Success2</h2>");
+                    console.log(codes);
+                    $('#pt').append("<h2>Success3</h2>");
+                    $.each(codes, function (key, value) {
+                      $('#pt').append("<h2>" +value.title + "</h2>");
+                    });
                 },
                 error: function(){
                 $('#pt').append("<h2>Fail</h2>");
                         //if fails      
                 }
             });
-            // e.preventDefault(); //STOP default action
-            // e.unbind(); //unbind. to stop multiple form submit.
-        // });
     }
-    // $("#homeform").submit(); //Submit  the FORM
     </script>
     <div id="pt">ppppp</div>
   </body>

@@ -76,10 +76,10 @@
 			                  </div>
 			                </li>
 			                <li class="list-group-item">
-			                  <input name="from" type=date step=7 min="1800-01-01" /> : From
+			                  <input name="from" type=date step=1 min="1800-01-01" /> : From
 			                </li>
 			                <li class="list-group-item">
-			                  <input name="to" type=date step=7 min="1800-01-01"/> : To
+			                  <input name="to" type=date step=1 min="1800-01-01"/> : To
 			                </li>
 			                <li class="list-group-item">
 			                  <button id="btnhome" type="button" class="btn btn-default">Search <span class="glyphicon glyphicon-search"></span></button>
@@ -92,6 +92,8 @@
 		</div>
 		<script type="text/javascript">
 		
+			$(document).ready(function() {
+			    
 			$( "#btnhome" ).click(function() {
 		        calltoservice();
 		        return false;
@@ -99,56 +101,27 @@
 		            
 		    function calltoservice(){
 	            var postData = $("#homeform").serializeArray();
+
 	            $('#pt').append("<h2>"+postData[0].value+"</h2>");
 	            var formURL = "http://thilina227.koding.io/service/service.php";
+
 	            jQuery.ajax({
 	                url : formURL,
 	                type: "POST",
 	                data : postData,
 	                dataType: "text",
 	                success:function(data){
-	                $('#pt').append("<h2>Success</h2>");
-	                
 	                var codes = jQuery.parseJSON(data);
-	                $('#pt').append("<h2>Success2</h2>");
-	                    console.log(codes);
-	                    $('#pt').append("<h2>Success3</h2>");
 	                    $.each(codes, function (key, value) {
-	                      $('#pt').append("<h2>" +value.title + "</h2>");
+	                        addMarker(value.latitude, value.longitude, codes.this);
 	                    });
 	                },
-	                error: function(){
-	                $('#pt').append("<h2>Fail</h2>");
-	                        //if fails      
+	                error: function(){  
 	                }
 	            });
 	    	}
-		
-			$("#btnhome").click(function() {
-				calltoservice();
-				return false;
-			});
-			function calltoservice() {
-				// $("#homeform").submit(function(e){
-				var postData = $(this).serializeArray();
-				var formURL = "http://thilina227.koding.io//hackathon.IOsalli/service/service.php";
-				jQuery.ajax({
-					url : formURL,
-					type : "POST",
-					data : postData,
-					success : function(data) {
-						$('#pt').append("<h2>Success</h2>");
-						//data: return data from server
-					},
-					error : function() {
-						$('#pt').append("<h2>Fail</h2>");
-						//if fails
-					}
-				});
-			}
 
 
-			$(document).ready(function() {
 				var $map = $("#mapdiv");
 
 				//show the initial map

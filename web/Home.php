@@ -37,7 +37,7 @@
         </div>
         <div class="row">
           <div class="col-xs-12 col-md-11">
-            <form action="http://utkk84d8bf6f.thilina227.koding.io/hackathon.IOsalli/service/service.php" method="get" class="navbar-form" role="search">
+            <form id="homeform" name="homeform" action="http://thilina227.koding.io//hackathon.IOsalli/service/service.php" method="POST" class="navbar-form" role="search">
               <ul class="list-group">
                 <li class="list-group-item">
                   <div class="checkbox">
@@ -88,7 +88,7 @@
                   <input name="to" type=date step=7 min="1800-01-01"/> : To
                 </li>
                 <li class="list-group-item">
-                  <button type="button" class="btn btn-default">Search <span class="glyphicon glyphicon-search"></span></button>
+                  <button id="btnhome" type="button" class="btn btn-default">Search <span class="glyphicon glyphicon-search"></span></button>
                 </li>
               </ul>
             </form>
@@ -102,6 +102,36 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
     <script src="https://rawgit.com/seiyria/bootstrap-slider/master/dist/bootstrap-slider.min.js"></script>
-    <script src="js/test.js">></script>
+    <script src="js/test.js"></script>
+    <script type="text/javascript">
+    $( "#btnhome" ).click(function() {
+        calltoservice();
+        return false;
+    });
+            
+    function calltoservice(){
+        // $("#homeform").submit(function(e){
+            var postData = $(this).serializeArray();
+            var formURL = "http://thilina227.koding.io//hackathon.IOsalli/service/service.php";
+            jQuery.ajax({
+                url : formURL,
+                type: "POST",
+                data : postData,
+                success:function(data){
+                $('#pt').append("<h2>Success</h2>");
+                        //data: return data from server
+                },
+                error: function(){
+                $('#pt').append("<h2>Fail</h2>");
+                        //if fails      
+                }
+            });
+            // e.preventDefault(); //STOP default action
+            // e.unbind(); //unbind. to stop multiple form submit.
+        // });
+    }
+    // $("#homeform").submit(); //Submit  the FORM
+    </script>
+    <div id="pt">ppppp</div>
   </body>
 </html>

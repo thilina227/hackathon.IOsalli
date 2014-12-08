@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Disaster Management System</title>
+		<title>Apadhaa Disaster Information</title>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
@@ -22,12 +22,19 @@
 				width: 100%;
 				margin-left: 5px;				
 			}
+			#loading{
+			    margin-top:250px;
+			    margin-left:50%;
+			    position:absolute;
+			    z-index:999;
+			}
 
 		</style>
 	</head>
 	<body>
 		<div class="row">
 			<div class="col-xs-6 col-md-9">
+			    <img id="loading" src="icons/loading.gif" alt="LOADING..." />
 				<div id="mapdiv" class="gmap3" width="100%" height="650px"></div>
 			</div>
 			<div class="col-xs-6 col-md-3">
@@ -341,6 +348,7 @@
 		    });
 		            
 		    function calltoservice(){
+<<<<<<< HEAD
 		        var checkedValues = $('input:checkbox:checked').map(function() {
                     return this.value;
                 }).get();
@@ -350,6 +358,11 @@
 	           // var postData = $("#homeform").serializeArray();
 	            var formURL = "http://prasadct.koding.io/hackathon.IOsalli/service/service.php?from="+fromdate+"&to="+todate+"&eventtype="+checkedValues+"&country="+country+"";
 	            
+=======
+		        $("#loading").show();
+	            var postData = $("#homeform").serializeArray();
+	            var formURL = "http://thilina227.koding.io/hackathon.IOsalli/service/service.php";
+>>>>>>> 3b269694849c62d05afd9fddabc1056ceed8eada
 	            jQuery.ajax({
 	                url : formURL,
 	                type: "GET",
@@ -362,6 +375,7 @@
 	                   $.each(codes, function (key, value) {
 	                        addMarker(value.latitude, value.longitude, value);
 	                    });
+	                   $("#loading").hide();
 	                },
 	                error: function(){  
 	                }
@@ -387,6 +401,8 @@
 						}
 					}
 				});
+				
+				$("#loading").hide();
 
 				//add marker
 				//addr=address of a place, or longitude, latitude

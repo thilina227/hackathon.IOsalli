@@ -418,7 +418,10 @@
 										}, 5000);
 										//wait 5 seconds before close the info window
 									}
-								}
+								},
+								click: function(){
+                                    getDisasterNews(data.eventtype, data.country, data.pubDate);
+                                }
 							}
 						}
 					});

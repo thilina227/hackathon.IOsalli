@@ -83,6 +83,8 @@ function parseXml ($fileContents) {
         $marker["longitude"]=  (string)$item->Point->long;
         $marker["eventtype"]=  (string)$item->eventtype;
         $marker["alertlevel"]=  (string)$item->alertlevel;
+        $marker["country"]=  (string)$item->country;
+        $marker["pubDate"]=  (string)$item->pubDate;
         array_push($array, $marker);
     }
     

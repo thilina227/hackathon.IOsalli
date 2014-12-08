@@ -9,6 +9,8 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 		<script src="js/gmap3.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="http://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
+	    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 		<style type="text/css" media="screen">
 			body {
 				text-align: center;
@@ -421,7 +423,22 @@
 									}
 								},
 								click: function(){
-                                    getDisasterNews(data.eventtype, data.country, data.pubDate);
+								    
+								    $( "#newswindow" ).dialog({ autoOpen: false });
+								    var event = "";
+								    if(data.eventtype=="FL")
+								        event = "Flood";
+								    if(data.eventtype=="TS")
+								        event = "Tsunami";
+								    if(data.eventtype=="EQ")
+								        event = "Earthquake";
+								    if(data.eventtype=="TC")
+								        event = "Hurricane";
+								    
+								    
+								    
+                                    getDisasterNews(event, data.country, data.pubDate);
+                                    $( "#newswindow" ).dialog( "open" );
                                 }
 							}
 						}
@@ -441,7 +458,7 @@
     3- date : String(Date which the disaster happen)
 and it open a pop-up window which contains news results according to given parameter*/
 				function getDisasterNews(disaster, location, date){
-                    var query = "https://www.googleapis.com/customsearch/v1?key=AIzaSyDywnI5ObiFyk8HGTvZEoOPE7i04BSW6dE&cx=015585821238283799135:mpbggould1a&q="+disaster+"+"+location+"+"+date+"";
+                    var query = "https://www.googleapis.com/customsearch/v1?key=AIzaSyDywnI5ObiFyk8HGTvZEoOPE7i04BSW6dE&cx=015585821238283799135:mpbggould1a&q=+news"+disaster+"+"+location+"+"+date+"";
                     jQuery.ajax({
                           type:'GET',
                           url: query ,
@@ -460,5 +477,6 @@ and it open a pop-up window which contains news results according to given param
                 }
 			});
 		</script>
+		<div id="newswindow" title="News search results"><p id="newsfeed"><font face="Georgia" size="4"></font></p></div>
 	</body>
 </html>

@@ -5,12 +5,12 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Disaster Management System</title>
-		<script src="js/jquery-1.4.4.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 		<script src="js/gmap3.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="http://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
-	    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-        <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 		<style type="text/css" media="screen">
 			body {
 				text-align: center;
@@ -45,7 +45,7 @@
 				</div>
 				<div class="row">
 					<div class="col-xs-12 col-md-11">
-						<form id="homeform" name="homeform" action="http://utkk84d8bf6f.thilina227.koding.io/hackathon.IOsalli/service/service.php" method="POST" class="navbar-form" role="search">
+						<form id="homeform" name="homeform" action="http://prasadct.koding.io/hackathon.IOsalli/service/service.php" method="POST" class="navbar-form" role="search">
 			              <ul class="list-group">
 			                <li class="list-group-item">
 			                  <div class="checkbox">
@@ -342,7 +342,7 @@
 		            
 		    function calltoservice(){
 	            var postData = $("#homeform").serializeArray();
-	            var formURL = "http://utkk84d8bf6f.thilina227.koding.io/hackathon.IOsalli/service/service.php";
+	            var formURL = "http://prasadct.koding.io/hackathon.IOsalli/service/service.php";
 	            jQuery.ajax({
 	                url : formURL,
 	                type: "POST",
@@ -423,7 +423,9 @@
 									}
 								},
 								click: function(){
-								    
+								    $( "#newswindow" ).dialog({
+                                          maxHeight: 600
+                                        });
 								    $( "#newswindow" ).dialog({ autoOpen: false });
 								    var event = "";
 								    if(data.eventtype=="FL")
@@ -437,9 +439,9 @@
 								    
 								    
 								    
-                                    getDisasterNews(event, data.country, data.pubDate);
+                                    getDisasterNews(event, data.country, data.pubDate);
                                     $( "#newswindow" ).dialog( "open" );
-                                }
+                                }
 							}
 						}
 					});
@@ -458,7 +460,7 @@
     3- date : String(Date which the disaster happen)
 and it open a pop-up window which contains news results according to given parameter*/
 				function getDisasterNews(disaster, location, date){
-                    var query = "https://www.googleapis.com/customsearch/v1?key=AIzaSyDywnI5ObiFyk8HGTvZEoOPE7i04BSW6dE&cx=015585821238283799135:mpbggould1a&q=+news"+disaster+"+"+location+"+"+date+"";
+                    var query = "https://www.googleapis.com/customsearch/v1?key=AIzaSyDywnI5ObiFyk8HGTvZEoOPE7i04BSW6dE&cx=015585821238283799135:mpbggould1a&q=news+"+disaster+"+"+location+"+"+date+"";
                     jQuery.ajax({
                           type:'GET',
                           url: query ,

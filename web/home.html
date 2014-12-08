@@ -45,7 +45,7 @@
 				</div>
 				<div class="row">
 					<div class="col-xs-12 col-md-11">
-						<form id="homeform" name="homeform" action="http://prasadct.koding.io/hackathon.IOsalli/service/service.php" method="POST" class="navbar-form" role="search">
+						<form id="homeform" name="homeform" method="GET" class="navbar-form" role="search">
 			              <ul class="list-group">
 			                <li class="list-group-item">
 			                  <div class="checkbox">
@@ -73,7 +73,7 @@
 			                  </div>
 			                </li>
 			                 <li class="list-group-item">
-                              <select class="form-control" name="country">
+                              <select class="form-control" name="country" id="countryselect">
                                 <option value="">All countries</option>
                                 <option value="Afghanistan">Afghanistan</option>
                                 <option value="Åland+Islands">Åland Islands</option>
@@ -293,18 +293,18 @@
                                 <option value="Tuvalu">Tuvalu</option>
                                 <option value="Uganda">Uganda</option>
                                 <option value="Ukraine">Ukraine</option>
-                                <option value="United+Arab+Emirates">United Arab Emirates</option>
-                                <option value="United+Kingdom">United Kingdom</option>
-                                <option value="United+States">United States</option>
+                                <option value="United%Arab+Emirates">United Arab Emirates</option>
+                                <option value="United%Kingdom">United Kingdom</option>
+                                <option value="United%States">United States</option>
                                 <option value="Uruguay">Uruguay</option>
                                 <option value="Uzbekistan">Uzbekistan</option>
                                 <option value="Vanuatu">Vanuatu</option>
                                 <option value="Venezuela">Venezuela</option>
                                 <option value="Viet Nam">Viet Nam</option>
-                                <option value="Virgin+Islands,+Britis">Virgin Islands, British</option>
-                                <option value="Virgin+Islands,+U.S">Virgin Islands, U.S.</option>
-                                <option value="Wallis+and+Futuna">Wallis and Futuna</option>
-                                <option value="Western+SaharaH">Western Sahara</option>
+                                <option value="Virgin%Islands,+Britis">Virgin Islands, British</option>
+                                <option value="Virgin%Islands,+U.S">Virgin Islands, U.S.</option>
+                                <option value="Wallis%and+Futuna">Wallis and Futuna</option>
+                                <option value="Western%SaharaH">Western Sahara</option>
                                 <option value="Yemen">Yemen</option>
                                 <option value="Zambia">Zambia</option>
                                 <option value="Zimbabwe">Zimbabwe</option>
@@ -341,16 +341,25 @@
 		    });
 		            
 		    function calltoservice(){
-	            var postData = $("#homeform").serializeArray();
-	            var formURL = "http://prasadct.koding.io/hackathon.IOsalli/service/service.php";
+		        var checkedValues = $('input:checkbox:checked').map(function() {
+                    return this.value;
+                }).get();
+                var country = $( "#countryselect option:selected" ).val();
+                var fromdate = $("#homeform input[name=from]").val();
+                var todate = $("#homeform input[name=to]").val();
+	           // var postData = $("#homeform").serializeArray();
+	            var formURL = "http://prasadct.koding.io/hackathon.IOsalli/service/service.php?from="+fromdate+"&to="+todate+"&eventtype="+checkedValues+"&country="+country+"";
+	            
 	            jQuery.ajax({
 	                url : formURL,
-	                type: "POST",
-	                data : postData,
+	                type: "GET",
 	                dataType: "text",
 	                success:function(data){
-	                var codes = jQuery.parseJSON(data);
-	                    $.each(codes, function (key, value) {
+	                    var codes = jQuery.parseJSON(data);
+	                    if(codes.length == 0){
+	                        alert("No data found for given inputs");
+	                    }
+	                   $.each(codes, function (key, value) {
 	                        addMarker(value.latitude, value.longitude, value);
 	                    });
 	                },

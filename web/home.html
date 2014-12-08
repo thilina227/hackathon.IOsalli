@@ -43,7 +43,7 @@
 				</div>
 				<div class="row">
 					<div class="col-xs-12 col-md-11">
-						<form id="homeform" name="homeform" action="http://thilina227.koding.io/hackathon.IOsalli/service/service.php" method="POST" class="navbar-form" role="search">
+						<form id="homeform" name="homeform" action="http://54.169.169.212/hackathon.IOsalli/service/service.php" method="POST" class="navbar-form" role="search">
 			              <ul class="list-group">
 			                <li class="list-group-item">
 			                  <div class="checkbox">
@@ -333,10 +333,7 @@
 		            
 		    function calltoservice(){
 	            var postData = $("#homeform").serializeArray();
-
-	            $('#pt').append("<h2>"+postData[0].value+"</h2>");
-	            var formURL = "http://thilina227.koding.io/service/service.php";
-
+	            var formURL = "http://54.169.169.212/hackathon.IOsalli/service/service.php";
 	            jQuery.ajax({
 	                url : formURL,
 	                type: "POST",
@@ -361,7 +358,7 @@
 					map : {
 						address : "Sri Lanka",
 						options : {
-							zoom : 3,
+							zoom : 2,
 							mapTypeControl : true,
 							mapTypeControlOptions : {
 								style : google.maps.MapTypeControlStyle.DROPDOWN_MENU
@@ -376,7 +373,6 @@
 				//add marker
 				//addr=address of a place, or longitude, latitude
 				function addMarker(lat, lon, data) {
-				    clear();
 					$map.gmap3({
 						marker : {
 							 values:[
@@ -407,7 +403,7 @@
 								mouseout : function() {
 									var infowindow = $(this).gmap3({
 										get : {
-											name : data['details']
+											name : "infowindow"
 										}
 									});
 									if(infowindow) {
@@ -428,6 +424,31 @@
 						clear : {}
 					});
 				}
+				
+				
+/* function getDisasterNews accept 3 parameters
+    1- disaster : String(Earthquakes, Flood, etc)
+    2- location : String(city or country)
+    3- date : String(Date which the disaster happen)
+and it open a pop-up window which contains news results according to given parameter*/
+				function getDisasterNews(disaster, location, date){
+                    var query = "https://www.googleapis.com/customsearch/v1?key=AIzaSyDywnI5ObiFyk8HGTvZEoOPE7i04BSW6dE&cx=015585821238283799135:mpbggould1a&q="+disaster+"+"+location+"+"+date+"";
+                    jQuery.ajax({
+                          type:'GET',
+                          url: query ,
+                          dataType: "json",
+                          success:function(data) {  
+                                $('#newsfeed').append("<h>"+location +"</h>");
+                                for(i = 0; i < data.items.length; i++) {
+                                    $('#newsfeed').append("<h2>" + data.items[i].title + "</h2>");
+                                    $('#newsfeed').append("<p>" + data.items[i].htmlTitle + "</p>");
+                                    $('#newsfeed').append("<p><a href=" + data.items[i].link + "> " + data.items[i].link + "</a></p>");
+                                    $('#newsfeed').append("<p>" + data.items[i].htmlSnippet + "</p>");
+                                    $('#newsfeed').append("<h2> ================================= </h2>");
+                                 }
+                        } 
+                       });
+                }
 			});
 		</script>
 	</body>

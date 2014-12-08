@@ -43,7 +43,7 @@
 				</div>
 				<div class="row">
 					<div class="col-xs-12 col-md-11">
-						<form id="homeform" name="homeform" action="http://thilina227.koding.io//hackathon.IOsalli/service/service.php" method="POST" class="navbar-form" role="search">
+						<form id="homeform" name="homeform" action="http://thilina227.koding.io/hackathon.IOsalli/service/service.php" method="POST" class="navbar-form" role="search">
 			              <ul class="list-group">
 			                <li class="list-group-item">
 			                  <div class="checkbox">
@@ -333,7 +333,10 @@
 		            
 		    function calltoservice(){
 	            var postData = $("#homeform").serializeArray();
-	            var formURL = "http://54.169.169.212/hackathon.IOsalli/service/service.php";
+
+	            $('#pt').append("<h2>"+postData[0].value+"</h2>");
+	            var formURL = "http://thilina227.koding.io/service/service.php";
+
 	            jQuery.ajax({
 	                url : formURL,
 	                type: "POST",
@@ -358,7 +361,7 @@
 					map : {
 						address : "Sri Lanka",
 						options : {
-							zoom : 2,
+							zoom : 3,
 							mapTypeControl : true,
 							mapTypeControlOptions : {
 								style : google.maps.MapTypeControlStyle.DROPDOWN_MENU
@@ -373,6 +376,7 @@
 				//add marker
 				//addr=address of a place, or longitude, latitude
 				function addMarker(lat, lon, data) {
+				    clear();
 					$map.gmap3({
 						marker : {
 							 values:[
@@ -403,7 +407,7 @@
 								mouseout : function() {
 									var infowindow = $(this).gmap3({
 										get : {
-											name : "infowindow"
+											name : data['details']
 										}
 									});
 									if(infowindow) {

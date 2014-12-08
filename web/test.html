@@ -13,9 +13,10 @@
                     // $('#info').html(JSON.stringify(data.results));
                     for (i=0; i<data.results.length; i++) {
                         obj = data.results[i];
-                        $('#news_feed').append('<p>'+JSON.stringify(obj)+'</p>');
-                        $('#news_feed').append('<p>'+JSON.stringify(obj)+'</p>');
-                        
+                        $('#news_feed').append('<p>'+JSON.stringify(obj['seo_bnp_link/_text'])+'</p>');
+                        var aTag = document.createElement('a');
+                        // $('#news_feed').append('<p>'+JSON.stringify(obj)+'</p>');
+                           
                     }
                 });
             });

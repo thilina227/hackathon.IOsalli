@@ -78,7 +78,7 @@ function parseXml ($fileContents) {
     foreach ($simpleXml->channel->item as $item) {
         $marker = array();
         $marker["title"]= (string)$item->title;
-        $marker["description"]= str_replace((string) $item->description);
+        $marker["description"]= (string) $item->description;
         $marker["latitude"]= (string) $item->Point->lat;
         $marker["longitude"]=  (string)$item->Point->long;
         $marker["eventtype"]=  (string)$item->eventtype;

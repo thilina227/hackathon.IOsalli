@@ -1,101 +1,43 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-      <style type="text/css">
-        html { height: 90% }
-        body { height: 100%; margin: 0; padding: 0 }
-        #map-canvas { height: 100%; width:100%;}
-    </style>
-    <script type="text/javascript" src="../js/api.js">
-    </script>
-    <script type="text/javascript">
-       function initialize() {
-          var mapOptions = {
-             center: new google.maps.LatLng(-34.397, 150.644),
-             zoom: 2,
-             minZoom: 2
-          };
-          var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-		  
-		  ///////////////
-var locations = [
-    [
-        "New Mermaid",
-        46.762443,
-        67.675781,
-        1,
-        "Georgia Mason",
-        "",
-        "Norfolk Botanical Gardens, 6700 Azalea Garden Rd.",
-        "coming soon"
-    ],
-    [
-        "1950 Fish Dish",
-        12.699292,
-        78.310547,
-        2,
-        "Terry Cox-Joseph",
-        "Rowena's",
-        "758 W. 22nd Street in front of Rowena's",
-        "found"
-    ],
-    [
-        "A Rising Community",
-        6.133728,
-        80.705566,
-        3,
-        "Steven F. Morris",
-        "Judy Boone Realty",
-        "Norfolk City Library - Pretlow Branch, 9640 Granby St.",
-        "found"
-    ],
-    [
-        "A School Of Fish",
-        -31.226894,
-        147.041016,
-        4,
-        "Steven F. Morris",
-        "Sandfiddler Pawn Shop",
-        "5429 Tidewater Dr.",
-        "found"
-    ],
-    [
-        "Aubrica the Mermaid (nee: Aubry Alexis)",
-        36.8618,
-        -76.203,
-        5,
-        "Myke Irving/ Georgia Mason",
-        "USAVE Auto Rental",
-        "Virginia Auto Rental on Virginia Beach Blvd",
-        "found"
-    ]
-]
-    var infowindow = new google.maps.InfoWindow();
+<style type="text/css">
+	#map-canvas {
+		height: 100%;
+		width: 100%;
+	}
+</style>
+<script type="text/javascript" src="../js/api.js"></script>
+<script type="text/javascript">
+	function initialize() {
+		var mapOptions = {
+			center : new google.maps.LatLng(-34.397, 150.644),
+			zoom : 2,
+			minZoom : 2
+		};
+		var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 
-    var marker, i;
+		///////////////
+		var locations = [["New Mermaid", 46.762443, 67.675781, 1, "Georgia Mason", "", "Norfolk Botanical Gardens, 6700 Azalea Garden Rd.", "coming soon"], ["1950 Fish Dish", 12.699292, 78.310547, 2, "Terry Cox-Joseph", "Rowena's", "758 W. 22nd Street in front of Rowena's", "found"], ["A Rising Community", 6.133728, 80.705566, 3, "Steven F. Morris", "Judy Boone Realty", "Norfolk City Library - Pretlow Branch, 9640 Granby St.", "found"], ["A School Of Fish", -31.226894, 147.041016, 4, "Steven F. Morris", "Sandfiddler Pawn Shop", "5429 Tidewater Dr.", "found"], ["Aubrica the Mermaid (nee: Aubry Alexis)", 36.8618, -76.203, 5, "Myke Irving/ Georgia Mason", "USAVE Auto Rental", "Virginia Auto Rental on Virginia Beach Blvd", "found"]]
+		var infowindow = new google.maps.InfoWindow();
 
-    for (i = 0; i < locations.length; i++) {  
-      marker = new google.maps.Marker({
-        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-        map: map
-      });
+		var marker, i;
 
-      google.maps.event.addListener(marker, 'click', (function(marker, i) {
-        return function() {
-          infowindow.setContent(locations[i][0], locations[i][6]);
-          infowindow.open(map, marker);
-        }
-      })(marker, i));
-    }
-		  //////////////
-       }
+		for( i = 0; i < locations.length; i++) {
+			marker = new google.maps.Marker({
+				position : new google.maps.LatLng(locations[i][1], locations[i][2]),
+				map : map
+			});
+
+			google.maps.event.addListener(marker, 'click', (function(marker, i) {
+				return function() {
+					infowindow.setContent(locations[i][0], locations[i][6]);
+					infowindow.open(map, marker);
+				}
+			})(marker, i));
+		}
+		//////////////
+	}
 
 
-       google.maps.event.addDomListener(window, 'load', initialize);
-    </script>
-  </head>
-  <body>
-   <div id="map-canvas"/>
-  </body>
-</html>
+	google.maps.event.addDomListener(window, 'load', initialize);
+
+</script>
+<div id="map-canvas"></div>

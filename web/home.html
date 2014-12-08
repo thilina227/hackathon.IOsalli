@@ -465,7 +465,8 @@ and it open a pop-up window which contains news results according to given param
                           type:'GET',
                           url: query ,
                           dataType: "json",
-                          success:function(data) {  
+                          success:function(data) {
+                              $('#newsfeed').empty();
                                 $('#newsfeed').append("<h>"+location +"</h>");
                                 for(i = 0; i < data.items.length; i++) {
                                     $('#newsfeed').append("<h2>" + data.items[i].title + "</h2>");
